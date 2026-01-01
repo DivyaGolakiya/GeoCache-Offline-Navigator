@@ -1,0 +1,489 @@
+/* Material Design 3 Variables */
+:root {
+    --md-sys-color-primary: #1976d2;
+    --md-sys-color-primary-container: #d3e4f7;
+    --md-sys-color-secondary: #0288d1;
+    --md-sys-color-surface: #ffffff;
+    --md-sys-color-surface-variant: #f5f5f5;
+    --md-sys-color-background: #fafafa;
+    --md-sys-color-error: #ba1a1a;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-on-surface: #1a1c1e;
+    --md-sys-color-on-surface-variant: #44474e;
+    --md-sys-color-outline: #74777f;
+    --md-sys-color-success: #2e7d32;
+    
+    /* Elevation */
+    --md-sys-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --md-sys-elevation-2: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --md-sys-elevation-3: 0 4px 8px rgba(0, 0, 0, 0.3);
+    
+    /* Shape */
+    --md-sys-shape-corner-small: 8px;
+    --md-sys-shape-corner-medium: 12px;
+    --md-sys-shape-corner-large: 16px;
+    
+    /* Typography */
+    --md-sys-typescale-headline-small: 24px;
+    --md-sys-typescale-title-large: 22px;
+    --md-sys-typescale-body-large: 16px;
+    --md-sys-typescale-body-medium: 14px;
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-surface);
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* App Header */
+.app-header {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    padding: 12px 16px;
+    box-shadow: var(--md-sys-elevation-2);
+    z-index: 1000;
+    position: relative;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.app-icon {
+    font-size: 28px;
+}
+
+.app-title {
+    font-size: var(--md-sys-typescale-title-large);
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Status Indicator */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--md-sys-shape-corner-small);
+    font-size: var(--md-sys-typescale-body-medium);
+}
+
+.status-indicator.offline {
+    background-color: rgba(255, 82, 82, 0.2);
+}
+
+.status-icon {
+    font-size: 18px;
+}
+
+/* Main Content */
+.main-content {
+    position: relative;
+    height: calc(100vh - 52px);
+    overflow: hidden;
+}
+
+/* Map Container */
+.map-container {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Control Panel */
+.control-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--md-sys-color-surface);
+    border-radius: var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) 0 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.control-panel.collapsed .panel-content {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.control-panel.collapsed #togglePanel .material-icons {
+    transform: rotate(180deg);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline);
+}
+
+.panel-header h2 {
+    font-size: var(--md-sys-typescale-headline-small);
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.panel-content {
+    padding: 16px;
+    overflow-y: auto;
+    max-height: calc(70vh - 64px);
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Input Fields */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background-color: var(--md-sys-color-surface-variant);
+    border-radius: var(--md-sys-shape-corner-small);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.input-field:focus-within {
+    border-color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-surface);
+}
+
+.input-icon {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 20px;
+}
+
+.input-field input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: var(--md-sys-typescale-body-large);
+    color: var(--md-sys-color-on-surface);
+    outline: none;
+}
+
+.input-field input::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.primary-button,
+.secondary-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--md-sys-shape-corner-small);
+    font-size: var(--md-sys-typescale-body-large);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.primary-button {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.primary-button:hover {
+    box-shadow: var(--md-sys-elevation-2);
+    background-color: #1565c0;
+}
+
+.primary-button:active {
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.primary-button:disabled {
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
+    cursor: not-allowed;
+}
+
+.secondary-button {
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-primary);
+    border: 1px solid var(--md-sys-color-outline);
+}
+
+.secondary-button:hover {
+    background-color: var(--md-sys-color-surface-variant);
+}
+
+.icon-button,
+.icon-button-small {
+    background: transparent;
+    border: none;
+    color: var(--md-sys-color-on-surface-variant);
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+}
+
+.icon-button-small {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-button:hover,
+.icon-button-small:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.icon-button .material-icons {
+    transition: transform 0.3s ease;
+}
+
+/* Route Info */
+.route-info {
+    background-color: var(--md-sys-color-primary-container);
+    padding: 12px;
+    border-radius: var(--md-sys-shape-corner-small);
+    margin-bottom: 16px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-item .material-icons {
+    font-size: 20px;
+    color: var(--md-sys-color-primary);
+}
+
+/* Section */
+.section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--md-sys-color-outline);
+}
+
+.section h3 {
+    font-size: var(--md-sys-typescale-body-large);
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.cache-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Floating Action Button */
+.fab {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border: none;
+    border-radius: 16px;
+    box-shadow: var(--md-sys-elevation-3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 900;
+}
+
+.fab:hover {
+    background-color: #1565c0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.fab:active {
+    box-shadow: var(--md-sys-elevation-2);
+}
+
+.fab .material-icons {
+    font-size: 24px;
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: var(--md-sys-color-on-surface);
+    color: var(--md-sys-color-surface);
+    padding: 12px 16px;
+    border-radius: var(--md-sys-shape-corner-small);
+    box-shadow: var(--md-sys-elevation-3);
+    z-index: 2000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-align: center;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    gap: 16px;
+    color: white;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Leaflet Customization */
+.leaflet-control-attribution {
+    font-size: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: var(--md-sys-shape-corner-small);
+}
+
+.leaflet-popup-content {
+    margin: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .control-panel {
+        bottom: 24px;
+        left: 24px;
+        right: auto;
+        max-width: 400px;
+        border-radius: var(--md-sys-shape-corner-large);
+    }
+    
+    .fab {
+        bottom: 24px;
+        right: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 18px;
+    }
+    
+    .status-text {
+        display: none;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --md-sys-color-surface: #1a1c1e;
+        --md-sys-color-surface-variant: #44474e;
+        --md-sys-color-background: #1a1c1e;
+        --md-sys-color-on-surface: #e3e2e6;
+        --md-sys-color-on-surface-variant: #c4c6d0;
+    }
+}
