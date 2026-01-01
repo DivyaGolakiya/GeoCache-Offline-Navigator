@@ -4,6 +4,9 @@
  */
 
 const Pathfinder = (function() {
+    // Constants
+    const AVERAGE_SPEED_KMH = 50; // Average traveling speed in km/h for time estimation
+
     /**
      * Node class for A* algorithm
      */
@@ -274,8 +277,8 @@ const Pathfinder = (function() {
                 );
             }
 
-            // Estimate time (assuming 50 km/h average speed)
-            const estimatedMinutes = Math.round((totalDistance / 50) * 60);
+            // Estimate time based on average traveling speed
+            const estimatedMinutes = Math.round((totalDistance / AVERAGE_SPEED_KMH) * 60);
 
             return {
                 success: true,
@@ -304,7 +307,7 @@ const Pathfinder = (function() {
     function createDirectPath(origin, destination) {
         const path = [origin, destination];
         const distance = haversineDistance(origin.lat, origin.lng, destination.lat, destination.lng);
-        const estimatedMinutes = Math.round((distance / 50) * 60);
+        const estimatedMinutes = Math.round((distance / AVERAGE_SPEED_KMH) * 60);
 
         return {
             success: true,

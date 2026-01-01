@@ -301,11 +301,23 @@ const CacheManager = (function() {
     }
 
     /**
-     * Convert lat/lng to tile coordinates
+     * Convert lat/lng to tile coordinates using Web Mercator projection
+     * @param {Number} lat - Latitude in degrees
+     * @param {Number} lng - Longitude in degrees
+     * @param {Number} zoom - Zoom level
+     * @returns {Object} Tile coordinates {x, y}
      */
     function latLngToTile(lat, lng, zoom) {
+        // Convert longitude to tile X coordinate
+        // Formula: x = floor((lng + 180) / 360 * 2^zoom)
         const x = Math.floor((lng + 180) / 360 * Math.pow(2, zoom));
-        const y = Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom));
+        
+        // Convert latitude to tile Y coordinate using Mercator projection
+        // This accounts for the spherical nature of Earth
+        const latRad = lat * Math.PI / 180;
+        const mercatorY = Math.log(Math.tan(latRad) + 1 / Math.cos(latRad));
+        const y = Math.floor((1 - mercatorY / Math.PI) / 2 * Math.pow(2, zoom));
+        
         return { x, y };
     }
 
