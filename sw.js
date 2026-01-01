@@ -77,14 +77,17 @@ self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
 
-    // Handle map tiles separately
-    if (url.hostname.includes('tile.openstreetmap.org')) {
+    // Handle map tiles separately - exact hostname match for security
+    if (url.hostname === 'tile.openstreetmap.org' || 
+        url.hostname.endsWith('.tile.openstreetmap.org')) {
         event.respondWith(handleTileRequest(request));
         return;
     }
 
-    // Handle Leaflet and external resources
-    if (url.hostname.includes('unpkg.com') || url.hostname.includes('googleapis.com')) {
+    // Handle Leaflet and external resources - exact hostname matches for security
+    if (url.hostname === 'unpkg.com' || 
+        url.hostname === 'fonts.googleapis.com' ||
+        url.hostname === 'fonts.gstatic.com') {
         event.respondWith(handleExternalResource(request));
         return;
     }
