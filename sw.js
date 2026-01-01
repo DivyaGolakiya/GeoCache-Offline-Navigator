@@ -18,6 +18,9 @@ const CACHE_ASSETS = [
 
 const TILE_CACHE = 'geocache-tiles-v1';
 
+// Offline tile placeholder
+const OFFLINE_TILE_SVG = '<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="256" fill="#f0f0f0"/><text x="128" y="128" text-anchor="middle" font-family="Arial" font-size="16" fill="#999">Offline</text></svg>';
+
 /**
  * Install event - cache core assets
  */
@@ -117,12 +120,9 @@ async function handleTileRequest(request) {
         console.error('Tile fetch error:', error);
         
         // Return a placeholder tile if offline
-        return new Response(
-            '<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="256" fill="#f0f0f0"/><text x="128" y="128" text-anchor="middle" font-family="Arial" font-size="16" fill="#999">Offline</text></svg>',
-            {
-                headers: { 'Content-Type': 'image/svg+xml' }
-            }
-        );
+        return new Response(OFFLINE_TILE_SVG, {
+            headers: { 'Content-Type': 'image/svg+xml' }
+        });
     }
 }
 

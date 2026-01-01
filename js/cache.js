@@ -12,6 +12,7 @@ const CacheManager = (function() {
         WAYPOINTS: 'waypoints',
         PREFERENCES: 'preferences'
     };
+    const TILE_DOWNLOAD_DELAY_MS = 100; // Delay between tile downloads to avoid overwhelming the server
 
     let db = null;
 
@@ -272,7 +273,7 @@ const CacheManager = (function() {
                 }
 
                 // Small delay to avoid overwhelming the server
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await new Promise(resolve => setTimeout(resolve, TILE_DOWNLOAD_DELAY_MS));
             } catch (error) {
                 console.error('Error caching tile:', error);
             }
@@ -313,7 +314,8 @@ const CacheManager = (function() {
         const x = Math.floor((lng + 180) / 360 * Math.pow(2, zoom));
         
         // Convert latitude to tile Y coordinate using Mercator projection
-        // This accounts for the spherical nature of Earth
+        // This uses the inverse Gudermannian function: ln(tan(π/4 + φ/2)) where φ is latitude in radians
+        // Simplified as: ln(tan(φ) + sec(φ)) which accounts for Earth's spherical nature
         const latRad = lat * Math.PI / 180;
         const mercatorY = Math.log(Math.tan(latRad) + 1 / Math.cos(latRad));
         const y = Math.floor((1 - mercatorY / Math.PI) / 2 * Math.pow(2, zoom));
