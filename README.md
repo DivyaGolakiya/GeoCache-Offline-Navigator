@@ -10,7 +10,7 @@ GeoCache is a privacy-first, ultra-efficient navigator designed for low-connecti
 
 ### Key Features:
 * **Ultra-Light:** Reduces map data footprint by 90% (500MB compressed to ~25MB) using Vector Tiles (.PBF format).
-* **Edge Computing:** Routing logic (A* Search Algorithm) happens entirely on the device zero server latency.
+* **Edge Computing:** Routing logic (A* Search Algorithm) happens entirely on the device, with zero server latency.
 * **Smart Cache:** Uses Service Workers and IndexedDB to keep maps permanent and accessible offline.
 * **Google Integration:** Uses Google Static Maps API for landmark snapshots and Material Design 3 for the UI.
 
